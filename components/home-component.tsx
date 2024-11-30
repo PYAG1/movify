@@ -7,12 +7,13 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { Movie } from "@/types";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function HomeComponent(movies:any) {
+export default function HomeComponent(movies:Movie) {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
 

@@ -1,4 +1,4 @@
-import { Movie } from "@/@types";
+import { Movie } from "@/types";
 import { buttonVariants } from "@/components/ui/button";
 import { format } from "date-fns";
 import { Home } from "lucide-react";

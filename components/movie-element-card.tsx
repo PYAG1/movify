@@ -1,5 +1,5 @@
 "use client";
-import { ExpandableCardProps, Movie } from "@/@types";
+import { ExpandableCardProps, Movie } from "@/types";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { format } from "date-fns";
 import { AnimatePresence, motion } from "framer-motion";

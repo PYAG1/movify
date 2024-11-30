@@ -30,3 +30,7 @@ export interface Movie {
 export interface ExpandableCardProps {
   movies: Movie[];
 }
+export interface CarouselItemType {
+  title: string;
+  image: string;
+}

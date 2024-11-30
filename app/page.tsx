@@ -17,52 +17,13 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CAROUSEL_IMAGES } from "@/extras";
 import { useQuery } from "@tanstack/react-query";
 import Autoplay from "embla-carousel-autoplay";
 import { Clapperboard } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
-interface CarouselItem {
-  title: string;
-  image: string;
-}
-
-interface MovieListResponse {
-  data: {
-    results: any[];
-    total_pages: number;
-  };
-}
-
-const CAROUSEL_IMAGES: CarouselItem[] = [
-  {
-    title: "Enjoy a wide range of movies",
-    image:
-      "https://images.pexels.com/photos/4009409/pexels-photo-4009409.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-  {
-    title: "Stream your favorite films anytime",
-    image:
-      "https://images.pexels.com/photos/7991386/pexels-photo-7991386.jpeg?auto=compress&cs=tinysrgb&w=600",
-  },
-  {
-    title: "Experience cinematic adventures at home",
-    image:
-      "https://images.unsplash.com/photo-1509564324749-471bd272e1ff?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "Discover the magic of movies in HD",
-    image:
-      "https://images.unsplash.com/photo-1512070679279-8988d32161be?q=80&w=1938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  },
-  {
-    title: "Sit back and enjoy!",
-    image:
-      "https://images.pexels.com/photos/8066671/pexels-photo-8066671.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-];
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(2);
@@ -73,7 +34,7 @@ export default function Home() {
     isLoading,
     isError,
     error,
-  } = useQuery<MovieListResponse>({
+  } = useQuery({
     queryKey: ["movieList", currentPage],
     queryFn: () => fetchMovieList(currentPage),
   });
@@ -94,21 +55,19 @@ export default function Home() {
   }
 
   useEffect(() => {
-    if (!api) {
-      return;
-    }
-
-    setCurrent(api.selectedScrollSnap());
-
-    const onSelect = () => {
+    if (api) {
       setCurrent(api.selectedScrollSnap());
-    };
 
-    api.on("select", onSelect);
+      const onSelect = () => {
+        setCurrent(api.selectedScrollSnap());
+      };
 
-    return () => {
-      api.off("select", onSelect);
-    };
+      api.on("select", onSelect);
+
+      return () => {
+        api.off("select", onSelect);
+      };
+    }
   }, [api]);
 
   return (
@@ -122,6 +81,7 @@ export default function Home() {
       <Carousel
         className="w-full max-w-full py-10"
         plugins={[Autoplay({ delay: 2000 })]}
+        setApi={setApi}
       >
         <CarouselContent className="flex gap-1 bg-background">
           {CAROUSEL_IMAGES.map((item, index) => (
@@ -162,9 +122,7 @@ export default function Home() {
       </Carousel>
 
       <section>
-        <h2 className="text-turq text-3xl font-semibold py-10">
-          Explore
-        </h2>
+        <h2 className="text-turq text-3xl font-semibold py-10">Explore</h2>
         {isLoading ? (
           <div className=" grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
             {[...Array(10)].map((_, index) => (
