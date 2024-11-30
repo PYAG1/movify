@@ -11,7 +11,7 @@ export default async function Page({
   params: Promise<{ movieid: string }>;
 }) {
   const data = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/3/movie/${(await params).movieid}`,
+    `https://api.themoviedb.org/3/movie/${(await params).movieid}`,
     {
       headers: {
         Authorization: `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`,

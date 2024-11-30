@@ -57,9 +57,10 @@ export default function Home() {
 
       api.on("select", onSelect);
   }, [api])
+
   if (isError) {
     return (
-      <div className="flex justify-center items-center h-screen text-red-500">
+      <div className="flex justify-center items-center h-screen p-5 text-red-500">
         Error loading movies:{" "}
         {error instanceof Error ? error.message : "Unknown error"}
       </div>
