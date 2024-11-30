@@ -44,18 +44,7 @@ export default function Home() {
       setCurrentPage(pageNumber);
     }
   };
-
-  if (isError) {
-    return (
-      <div className="flex justify-center items-center h-screen text-red-500">
-        Error loading movies:{" "}
-        {error instanceof Error ? error.message : "Unknown error"}
-      </div>
-    );
-  }
-
-  
-  useEffect(function controlCarouselApi(){
+  useEffect(() => {
     if (!api) {
       return
     }
@@ -67,8 +56,17 @@ export default function Home() {
       };
 
       api.on("select", onSelect);
-  },
-   [api])
+  }, [api])
+  if (isError) {
+    return (
+      <div className="flex justify-center items-center h-screen text-red-500">
+        Error loading movies:{" "}
+        {error instanceof Error ? error.message : "Unknown error"}
+      </div>
+    );
+  }
+
+
 
   return (
     <div className="w-full min-h-screen bg-background p-4 md:px-10 lg:px-28">
