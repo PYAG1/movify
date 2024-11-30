@@ -54,7 +54,8 @@ export default function Home() {
     );
   }
 
-  useEffect(() => {
+  
+  useEffect(function controlCarouselApi(){
     if (!api) {
       return
     }
@@ -66,7 +67,8 @@ export default function Home() {
       };
 
       api.on("select", onSelect);
-  }, [api])
+  },
+   [api])
 
   return (
     <div className="w-full min-h-screen bg-background p-4 md:px-10 lg:px-28">
