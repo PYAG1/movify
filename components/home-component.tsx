@@ -43,7 +43,7 @@ export default function HomeComponent(movies:Movie) {
     };
   }, [api]);
 
-  console.log("movies",movies)
+
   return (
     <div className="w-full h-screen bg-background p-4">
       <Carousel

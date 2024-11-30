@@ -41,7 +41,7 @@ export default async function Page({
 
       <div className="relative w-full min-h-full bg-black">
         <Image
-          priority
+       
           width={500}
           height={500}
           src={`https://image.tmdb.org/t/p/original${movieData.backdrop_path}`}
