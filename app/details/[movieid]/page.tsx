@@ -1,10 +1,9 @@
-import { useRouter } from "next/router";
-import Image from "next/image";
-import { format } from "date-fns";
 import { Movie } from "@/@types";
-import Link from "next/link";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { format } from "date-fns";
 import { Home } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default async function Page({
   params,
@@ -20,9 +19,6 @@ export default async function Page({
     }
   );
   const movieData: Movie = await data.json();
-
-  const slug = (await params).movieid;
-
 
   return (
     <div className="w-full min-h-screen p-5 text-white md:max-w-2xl lg:max-w-6xl md:mx-auto">
