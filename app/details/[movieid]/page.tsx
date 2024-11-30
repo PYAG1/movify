@@ -39,7 +39,7 @@ export default async function Page({
         </p>
       </div>
 
-      <div className="relative w-full min-h-screen bg-black">
+      <div className="relative w-full h-full bg-black">
         <Image
           priority
           width={500}
