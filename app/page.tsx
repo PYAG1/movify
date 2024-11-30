@@ -27,7 +27,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(2);
-  const [api, setApi] = useState<CarouselApi>();
+  const [api, setApi] = useState<CarouselApi | null>(null);
   const [current, setCurrent] = useState(0);
   const {
     data: movieList,
@@ -53,7 +53,6 @@ export default function Home() {
       </div>
     );
   }
-
   useEffect(() => {
     if (api) {
       setCurrent(api.selectedScrollSnap());
