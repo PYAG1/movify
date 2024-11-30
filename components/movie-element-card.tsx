@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
+import { format } from "date-fns"; 
 import Link from "next/link";
 
 export interface IMovie {
@@ -26,7 +27,7 @@ interface ExpandableCardProps {
   movies: IMovie[];
 }
 
-export const ExpandableCardDemo: React.FC<ExpandableCardProps> = ({
+export const ExpandableMovieCards: React.FC<ExpandableCardProps> = ({
   movies,
 }) => {
   const [active, setActive] = useState<IMovie | null>(null);
@@ -101,9 +102,16 @@ export const ExpandableCardDemo: React.FC<ExpandableCardProps> = ({
                   >
                     {active.title}
                   </motion.h3>
-                  <motion.p className="text-neutral-300 dark:text-neutral-400 text-base text-justify">
-                    {active.overview}
+                  <motion.p className="text-neutral-300 hidden md:block dark:text-neutral-400 text-base text-justify">
+                  
+                    {active.overview.length > 270 
+            ? `${active.overview.slice(0, 270)}...` 
+            : active.overview}
                   </motion.p>
+                  <motion.p className="text-neutral-300 md:hidden dark:text-neutral-400 text-base text-justify">
+                  
+                  {active.overview}
+                </motion.p>
                   <div>
                   <Link href={"/"} className=" underline text-[#f6c299] hover:text-orange "> view more</Link>
                 </div>
@@ -114,37 +122,48 @@ export const ExpandableCardDemo: React.FC<ExpandableCardProps> = ({
           </div>
         )}
       </AnimatePresence>
-      <ul className="  w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 items-start gap-4 ">
-        {movies.map((movie,index) => (
-          <motion.div
+      <ul className="w-full grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 items-start gap-4">
+  {movies.map((movie, index) => (
+    <motion.div
+      layoutId={`card-${movie.id}-${id}`}
+      key={`card-${movie.id}-${id}-${index}`}
+      onClick={() => setActive(movie)}
+      className="p-3 flex flex-col rounded-xl cursor-pointer"
+    >
+      <div className="flex gap-4 flex-col w-full">
+        <motion.div layoutId={`image-${movie.id}-${id}`} className="relative">
+          <Image
+            width={500}
+            height={750}
+            src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+            alt={movie.title}
+            className="h-60 w-full rounded-lg object-cover object-top"
+          />
       
-            layoutId={`card-${movie.id}-${id}`}
-            key={`card-${movie.id}-${id}-${index}`}
-            onClick={() => setActive(movie)}
-            className="p-3 flex flex-col    rounded-xl cursor-pointer"
-          >
-            <div className="flex gap-4 flex-col w-full">
-              <motion.div layoutId={`image-${movie.id}-${id}`}>
-                <Image
-                  width={500}
-                  height={750}
-                  src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
-                  alt={movie.title}
-                  className="h-60 w-full rounded-lg object-cover object-top"
-                />
-              </motion.div>
-              <div className="flex flex-col">
-                <motion.h3
-                  layoutId={`title-${movie.id}-${id}`}
-                  className="font-semibold text-neutral-200 text-lg"
-                >
-                  {movie.title}
-                </motion.h3>
-              </div>
+          <div className="absolute inset-0 bg-black/50 rounded-lg flex items-center justify-end p-2"/>
+          <div className="bg-background_light absolute top-2 right-2 text-white text-md font-semibold p-2 rounded-full">
+            {movie.vote_average.toFixed(1)}
             </div>
-          </motion.div>
-        ))}
-      </ul>
+        
+        </motion.div>
+        <div className="flex flex-col">
+          <motion.h3
+            layoutId={`title-${movie.id}-${id}`}
+            className="font-semibold text-neutral-200 text-base"
+          >
+            {movie?.title}
+          </motion.h3>
+          <p
+                
+            className="font-semibold text-zinc-500 text-xs"
+          >
+{format(movie?.release_date,"yyyy-MM-dd")}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  ))}
+</ul>
     </>
   );
 };

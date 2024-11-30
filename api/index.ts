@@ -9,7 +9,7 @@ export const apiInstance = axios.create({
 
 export async function fetchMovieList(page: number) {
   try {
-  return apiInstance.get(`/4/list/${page}`);
+  return apiInstance.get(`/4/list/1?page=${page}`);
 
   } catch (error) {
     throw error;
