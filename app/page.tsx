@@ -1,8 +1,6 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
+import { fetchMovieList } from "@/api";
+import { ExpandableMovieCards } from "@/components/movie-element-card";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -18,11 +16,13 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import Autoplay from "embla-carousel-autoplay";
-import { fetchMovieList } from "@/api";
-import { ExpandableMovieCards } from "@/components/movie-element-card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useQuery } from "@tanstack/react-query";
+import Autoplay from "embla-carousel-autoplay";
 import { Clapperboard } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface CarouselItem {
   title: string;

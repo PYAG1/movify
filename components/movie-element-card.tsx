@@ -1,11 +1,11 @@
 "use client";
-import Image from "next/image";
-import React, { useEffect, useId, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { useOutsideClick } from "@/hooks/use-outside-click";
-import { format } from "date-fns"; 
-import Link from "next/link";
 import { ExpandableCardProps, Movie } from "@/@types";
+import { useOutsideClick } from "@/hooks/use-outside-click";
+import { format } from "date-fns";
+import { AnimatePresence, motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect, useId, useRef, useState } from "react";
 
 
 export const ExpandableMovieCards: React.FC<ExpandableCardProps> = ({
