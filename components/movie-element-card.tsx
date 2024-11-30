@@ -5,32 +5,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "@/hooks/use-outside-click";
 import { format } from "date-fns"; 
 import Link from "next/link";
+import { ExpandableCardProps, Movie } from "@/@types";
 
-export interface IMovie {
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
-  id: number;
-  original_language: string;
-  original_title: string;
-  overview: string;
-  popularity: number;
-  poster_path: string;
-  release_date: Date;
-  title: string;
-  video: boolean;
-  vote_average: number;
-  vote_count: number;
-}
-
-interface ExpandableCardProps {
-  movies: IMovie[];
-}
 
 export const ExpandableMovieCards: React.FC<ExpandableCardProps> = ({
   movies,
 }) => {
-  const [active, setActive] = useState<IMovie | null>(null);
+  const [active, setActive] = useState<Movie | null>(null);
   const id = useId();
   const ref = useRef<HTMLDivElement>(null);
 
@@ -113,7 +94,7 @@ export const ExpandableMovieCards: React.FC<ExpandableCardProps> = ({
                   {active.overview}
                 </motion.p>
                   <div>
-                  <Link href={"/"} className=" underline text-[#f6c299] hover:text-orange "> view more</Link>
+                  <Link href={`/details/${active.id}`} className=" underline text-[#f6c299] hover:text-orange "> view more</Link>
                 </div>
                 </div>
               

@@ -22,7 +22,7 @@ export async function fetchMovieDetails(movieId: string) {
       url: `/3/movie/${movieId}`,
       method: "get",
     });
-    return response;
+    return response.data;
   } catch (error) {
     throw error;
   }
