@@ -10,7 +10,12 @@ export default {
   theme: {
   	extend: {
   		colors: {
-  			background: 'hsl(var(--background))',
+			orange: '#EC8433',
+			turq: '#05B1B9',
+			background: '#000000',
+	  ash:'#313131',
+	  background_light:'#202021',
+  		
   			foreground: 'hsl(var(--foreground))',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
