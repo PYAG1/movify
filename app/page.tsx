@@ -53,21 +53,20 @@ export default function Home() {
       </div>
     );
   }
+
   useEffect(() => {
-    if (api) {
-      setCurrent(api.selectedScrollSnap());
+    if (!api) {
+      return
+    }
+ 
+    setCurrent(api.selectedScrollSnap());
 
       const onSelect = () => {
         setCurrent(api.selectedScrollSnap());
       };
 
       api.on("select", onSelect);
-
-      return () => {
-        api.off("select", onSelect);
-      };
-    }
-  }, [api]);
+  }, [api])
 
   return (
     <div className="w-full min-h-screen bg-background p-4 md:px-10 lg:px-28">
@@ -85,7 +84,7 @@ export default function Home() {
         <CarouselContent className="flex gap-1 bg-background">
           {CAROUSEL_IMAGES.map((item, index) => (
             <CarouselItem key={index}>
-              <Card className="w-full h-[40vh] md:h-[60vh] border-none">
+              <Card className="w-full h-[40vh] md:h-[70vh] border-none">
                 <CardContent className="relative h-full w-full">
                   <Image
                     src={item.image}
